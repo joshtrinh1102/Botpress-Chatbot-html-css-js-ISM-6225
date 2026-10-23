@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoltEdge Electronics | Sales Dashboard</title>
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="container nav-bar" aria-label="Main navigation">
+      <a href="index.html" class="brand"><span class="brand-logo">⚡</span>Volt<span class="highlight">Edge</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="crud.html">Inventory</a></li>
+        <li><a href="bot.html">Ask VoltBot</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1>Sales Dashboard</h1>
+        <p>Revenue, category, store, and product performance across all VoltEdge locations.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="dashboard-controls">
+          <label for="yearSelect">Fiscal Year:</label>
+          <select id="yearSelect">
+            <option value="2026" selected>2026</option>
+            <option value="2025">2025</option>
+          </select>
+          <span style="color: var(--muted); font-size: 0.9rem;">Hover over charts for details. Click legend items to show or hide data.</span>
+        </div>
+
+        <div class="grid grid-4" style="margin-bottom: 24px;">
+          <div class="card kpi">
+            <span class="kpi-label">Total Revenue</span>
+            <span class="kpi-value" id="kpiRevenue">$0</span>
+            <span class="kpi-change" id="kpiRevenueChange"></span>
+          </div>
+          <div class="card kpi">
+            <span class="kpi-label">Total Orders</span>
+            <span class="kpi-value" id="kpiOrders">0</span>
+            <span class="kpi-change">All channels</span>
+          </div>
+          <div class="card kpi">
+            <span class="kpi-label">Average Order Value</span>
+            <span class="kpi-value" id="kpiAov">$0</span>
+            <span class="kpi-change">Revenue ÷ orders</span>
+          </div>
+          <div class="card kpi">
+            <span class="kpi-label">Store Locations</span>
+            <span class="kpi-value">4</span>
+            <span class="kpi-change">+ online store</span>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card chart-card chart-wide">
+            <div class="chart-header">
+              <h3>Monthly Revenue</h3>
+              <button class="btn btn-secondary btn-sm" id="chartTypeToggle">Show as Bar</button>
+            </div>
+            <div class="chart-wrap"><canvas id="revenueChart" aria-label="Monthly revenue chart" role="img"></canvas></div>
+          </div>
+
+          <div class="card chart-card">
+            <div class="chart-header"><h3>Revenue by Category</h3></div>
+            <div class="chart-wrap"><canvas id="categoryChart" aria-label="Revenue by category chart" role="img"></canvas></div>
+          </div>
+
+          <div class="card chart-card">
+            <div class="chart-header"><h3>Revenue by Store &amp; Channel</h3></div>
+            <div class="chart-wrap"><canvas id="storeChart" aria-label="Revenue by store chart" role="img"></canvas></div>
+          </div>
+
+          <div class="card chart-card chart-wide">
+            <div class="chart-header"><h3>Top 5 Products by Units Sold</h3></div>
+            <div class="chart-wrap"><canvas id="productsChart" aria-label="Top products chart" role="img"></canvas></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year">2026</span> VoltEdge Electronics &middot; ISM 6225 Prototype</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="crud.html">Inventory</a></li>
+        <li><a href="bot.html">Ask VoltBot</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

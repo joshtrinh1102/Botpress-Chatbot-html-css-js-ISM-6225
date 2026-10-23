@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoltEdge Electronics | Inventory</title>
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="container nav-bar" aria-label="Main navigation">
+      <a href="index.html" class="brand"><span class="brand-logo">⚡</span>Volt<span class="highlight">Edge</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="crud.html">Inventory</a></li>
+        <li><a href="bot.html">Ask VoltBot</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1>Inventory Manager</h1>
+        <p>Add, view, update, and delete products in the VoltEdge sales inventory. (Prototype: no database, data resets when the page reloads.)</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="grid grid-3" style="margin-bottom: 24px;">
+          <div class="card kpi">
+            <span class="kpi-label">Products in Inventory</span>
+            <span class="kpi-value" id="productCount">0</span>
+          </div>
+          <div class="card kpi">
+            <span class="kpi-label">Total Inventory Value</span>
+            <span class="kpi-value" id="inventoryValue">$0.00</span>
+          </div>
+          <div class="card kpi">
+            <span class="kpi-label">Low / Out of Stock Items</span>
+            <span class="kpi-value" id="lowStockCount">0</span>
+          </div>
+        </div>
+
+        <!-- Create / Update form -->
+        <div class="card" style="margin-bottom: 24px;">
+          <h3 id="formTitle">Add Product <span class="mode-badge">New</span></h3>
+          <form id="productForm" novalidate>
+            <input type="hidden" id="productId">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" placeholder="e.g. VoltBook Pro 16" required maxlength="60">
+              </div>
+              <div class="form-group">
+                <label for="productCategory">Category</label>
+                <select id="productCategory" required>
+                  <option value="">Select a category</option>
+                  <option>Laptops</option>
+                  <option>Smartphones</option>
+                  <option>Audio</option>
+                  <option>Gaming</option>
+                  <option>Smart Home</option>
+                  <option>Accessories</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="productPrice">Price (USD)</label>
+                <input type="number" id="productPrice" placeholder="0.00" min="0" step="0.01" required>
+              </div>
+              <div class="form-group">
+                <label for="productStock">Units in Stock</label>
+                <input type="number" id="productStock" placeholder="0" min="0" step="1" required>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="submitBtn">Add Product</button>
+              <button type="button" class="btn btn-secondary" id="cancelEdit" hidden>Cancel Edit</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Read table -->
+        <div class="card">
+          <div class="table-toolbar">
+            <h3 style="margin: 0;">Product Inventory</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+              <input type="search" id="searchInput" placeholder="Search by name or ID..." aria-label="Search products">
+              <select id="categoryFilter" aria-label="Filter by category">
+                <option value="">All Categories</option>
+                <option>Laptops</option>
+                <option>Smartphones</option>
+                <option>Audio</option>
+                <option>Gaming</option>
+                <option>Smart Home</option>
+                <option>Accessories</option>
+              </select>
+              <button type="button" class="btn btn-secondary" id="resetData">Reset Data</button>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Product ID</th>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="productTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year">2026</span> VoltEdge Electronics &middot; ISM 6225 Prototype</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="crud.html">Inventory</a></li>
+        <li><a href="bot.html">Ask VoltBot</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
