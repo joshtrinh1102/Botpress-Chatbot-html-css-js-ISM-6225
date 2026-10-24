@@ -719,19 +719,22 @@ td.actions {
 
 /* Scrollable Inventory Table */
 .inventory-scroll {
-    max-height: 450px;
+    max-height: 420px;
     overflow-y: auto;
     overflow-x: auto;
     border: 1px solid #ddd;
     border-radius: 8px;
+    background: #fff;
+    position: relative;
 }
 
 /* Keep table headers visible while scrolling */
 .inventory-scroll thead th {
     position: sticky;
     top: 0;
-    background-color: #f4f4f4;
     z-index: 2;
+    background-color: #f4f4f4;
+    box-shadow: inset 0 -1px 0 var(--border);
 }
 
 /* Prevent columns from becoming too narrow */
@@ -741,4 +744,5 @@ td.actions {
     border-collapse: separate;
     border-spacing: 0;
 }
+
 
