@@ -2,6 +2,8 @@
 async function loadProducts() {
   const tableBody = document.getElementById("productTableBody");
 
+  if (!tableBody) return;
+
   try {
     const response = await fetch("data/Products.csv.csv");
 
@@ -15,6 +17,10 @@ async function loadProducts() {
       header: true,
       skipEmptyLines: true
     });
+
+    if (result.errors.length) {
+      console.warn("CSV parsing warnings:", result.errors);
+    }
 
     tableBody.innerHTML = "";
 
@@ -39,7 +45,9 @@ async function loadProducts() {
 
       values.forEach(value => {
         const cell = document.createElement("td");
+
         cell.textContent = value ?? "";
+
         row.appendChild(cell);
       });
 
