@@ -291,6 +291,32 @@ img {
   padding: 24px;
 }
 
+.bot-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(260px, 0.9fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.bot-chat-card {
+  width: 100%;
+  max-width: 420px;
+  min-height: 250px;
+  margin: 0 auto;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bot-chat-card h3 {
+  margin-bottom: 16px;
+}
+
+.bot-chat-card p {
+  margin: 0 0 16px;
+}
+
 .card h3 {
   margin-top: 0;
 }
@@ -708,7 +734,8 @@ td.actions {
   }
 
   .grid-2,
-  .grid-3 {
+  .grid-3,
+  .bot-layout {
     grid-template-columns: 1fr;
   }
 
@@ -719,29 +746,28 @@ td.actions {
 
 /* Scrollable Inventory Table */
 .inventory-scroll {
-    max-height: 420px;
-    overflow-y: auto;
-    overflow-x: auto;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #fff;
-    position: relative;
+  max-height: 420px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  position: relative;
 }
 
 /* Keep table headers visible while scrolling */
 .inventory-scroll thead th {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    background-color: #f4f4f4;
-    box-shadow: inset 0 -1px 0 var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: #f4f4f4;
+  box-shadow: inset 0 -1px 0 var(--border);
 }
 
 /* Prevent columns from becoming too narrow */
 .inventory-scroll table {
-    width: 100%;
-    min-width: 900px;
-    border-collapse: separate;
-    border-spacing: 0;
+  width: 100%;
+  min-width: 900px;
+  border-collapse: separate;
+  border-spacing: 0;
 }
-
