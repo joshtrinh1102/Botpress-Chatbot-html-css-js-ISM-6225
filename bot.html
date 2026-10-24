@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +8,12 @@
   <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
+
   <header class="site-header">
     <nav class="container nav-bar" aria-label="Main navigation">
-      <a href="index.html" class="brand"><span class="brand-logo">⚡</span>Volt<span class="highlight">Edge</span></a>
+      <a href="index.html" class="brand">
+        <span class="brand-logo">⚡</span>Volt<span class="highlight">Edge</span>
+      </a>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
@@ -24,87 +28,104 @@
   <main>
     <section class="page-header">
       <div class="container">
-        <h1>🤖 Stockwise &ndash; Product Assistant</h1>
+        <h1>🤖 StockWise - Product Assistant</h1>
         <p>Our Botpress AI assistant answers questions about our products.</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container grid grid-2">
+
         <div>
           <div class="card" style="margin-bottom: 24px;">
             <h3>About the Dataset</h3>
-            <p>StockWise searches a Botpress Table called <strong>VoltEdge_Products</strong> containing 10 products sold at VoltEdge Electronics. Each row includes:</p>
-            <p><strong>Product_ID</strong>, <strong>Product_Name</strong>, <strong>Category</strong>, <strong>Brand</strong>, <strong>Price</strong>, <strong>Stock_Status</strong>, and <strong>Description</strong>.</p>
-            <p>The table is connected to a Knowledge Base, so StockWise can answer questions about prices, categories, availability, and product features.</p>
+            <p>
+              StockWise uses a Botpress Knowledge Base to answer
+              questions about VoltEdge Electronics inventory.
+              Our website displays 120 products from the inventory dataset.
+            </p>
+            <p>
+              Product information includes
+              <strong>ProductID</strong>,
+              <strong>ProductName</strong>,
+              <strong>Category</strong>,
+              <strong>ProductType</strong>,
+              <strong>UnitPriceUSD</strong>,
+              <strong>QuantityInStock</strong>,
+              <strong>StockStatus</strong>, and
+              <strong>ProductLocation</strong>.
+            </p>
+            <p>
+              Website inventory and Botpress knowledge are managed
+              separately. Changes to website inventory may not
+              immediately appear in StockWise's responses.
+            </p>
           </div>
 
           <div class="card" style="margin-bottom: 24px;">
             <h3>How to Chat</h3>
             <ol class="steps">
-              <li>Click the chat bubble in the bottom-right corner of this page.</li>
+              <li>Click the chat bubble in the bottom-right corner.</li>
               <li>Type a question about any VoltEdge product.</li>
-              <li>Be specific: mention a product name, category, or price range.</li>
+              <li>Ask about product names, prices, categories, or locations.</li>
             </ol>
           </div>
 
           <div class="card">
             <h3>Sample Questions</h3>
             <ul class="sample-questions">
-              <li>"How much do the pens cost the VoltBook Pro 14 cost?"</li>
-              <li>"What smartphones do you sell?"</li>
-              <li>"Is the BoomBox 360 Speaker in stock?"</li>
-              <li>"Which headphones have noise cancelling?"</li>
-              <li>"What is the cheapest smart home product?"</li>
-              <li>"Recommend a phone product under $1,000."</li>
+              <li>"How much do the black ballpoint pens cost?"</li>
+              <li>"What office stationery products do you sell?"</li>
+              <li>"Are the blue ballpoint pens in stock?"</li>
+              <li>"Where can I find the mechanical pencils?"</li>
+              <li>"What is the cheapest product in inventory?"</li>
+              <li>"Which products need to be reordered?"</li>
             </ul>
           </div>
         </div>
 
         <div class="card">
           <h3>Chat with StockWise</h3>
-          <!-- BOTPRESS PLACEHOLDER: remove this placeholder div after the bot embed is added below -->
-          <div class="bot-placeholder" id="botPlaceholder">
-            <div>
-              <div class="bot-icon">💬</div>
-              <h4> is coming soon</h4>
-              <p>Test.</p>
-            </div>
-          </div>
+          <p>
+            StockWise is your virtual store assistant.
+            Ask about product information, listed prices,
+            stock status, and store locations.
+          </p>
+          <p>
+            Click the chat bubble in the bottom-right corner
+            to start a conversation.
+          </p>
         </div>
+
       </div>
     </section>
 
     <section class="section" style="padding-top: 0;">
       <div class="container">
         <div class="card">
-          <h3>VoltEdge_Products Table (Bot Knowledge Base)</h3>
+          <h3>VoltEdge Product Inventory</h3>
+
           <div class="table-responsive">
             <table>
               <thead>
                 <tr>
-                  <th>Product_ID</th>
-                  <th>Product_Name</th>
+                  <th>Product ID</th>
+                  <th>Product Name</th>
                   <th>Category</th>
-                  <th>Brand</th>
+                  <th>Product Type</th>
                   <th>Price</th>
-                  <th>Stock_Status</th>
+                  <th>Quantity</th>
+                  <th>Stock Status</th>
+                  <th>Location</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr><td>VE-1001</td><td>VoltBook Pro 14</td><td>Laptops</td><td>VoltEdge</td><td>$1,299.99</td><td>In Stock</td></tr>
-                <tr><td>VE-1002</td><td>VoltBook Air 13</td><td>Laptops</td><td>VoltEdge</td><td>$899.99</td><td>In Stock</td></tr>
-                <tr><td>VE-1003</td><td>Nova X5 Phone</td><td>Smartphones</td><td>Nova</td><td>$999.00</td><td>In Stock</td></tr>
-                <tr><td>VE-1004</td><td>Nova Lite Phone</td><td>Smartphones</td><td>Nova</td><td>$449.00</td><td>Low Stock</td></tr>
-                <tr><td>VE-1005</td><td>PulseBuds ANC</td><td>Audio</td><td>Pulse</td><td>$179.99</td><td>In Stock</td></tr>
-                <tr><td>VE-1006</td><td>BoomBox 360 Speaker</td><td>Audio</td><td>Pulse</td><td>$129.99</td><td>Out of Stock</td></tr>
-                <tr><td>VE-1007</td><td>Arcade One Console</td><td>Gaming</td><td>Arcade</td><td>$499.99</td><td>In Stock</td></tr>
-                <tr><td>VE-1008</td><td>HomeHub Mini</td><td>Smart Home</td><td>HomeHub</td><td>$59.99</td><td>In Stock</td></tr>
-                <tr><td>VE-1009</td><td>HomeHub Cam 2K</td><td>Smart Home</td><td>HomeHub</td><td>$89.99</td><td>In Stock</td></tr>
-                <tr><td>VE-1010</td><td>FastCharge 65W Charger</td><td>Accessories</td><td>VoltEdge</td><td>$39.99</td><td>In Stock</td></tr>
+
+              <tbody id="productTableBody">
               </tbody>
+
             </table>
           </div>
+
         </div>
       </div>
     </section>
@@ -112,21 +133,58 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; <span id="year">2026</span> VoltEdge Electronics &middot; ISM 6225 Prototype</p>
+      <p>
+        &copy; <span id="year">2026</span>
+        VoltEdge Electronics &middot; ISM 6225 Prototype
+      </p>
+
       <ul class="footer-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="dashboard.html">Dashboard</a></li>
         <li><a href="crud.html">Inventory</a></li>
-        <li><a href="bot.html">Ask VoltBot</a></li>
+        <li><a href="bot.html">Ask StockWise</a></li>
         <li><a href="aboutus.html">About Us</a></li>
       </ul>
     </div>
   </footer>
 
+  <!-- Main website JavaScript -->
   <script src="js/main.js"></script>
 
-       <script src="https://cdn.botpress.cloud/webchat/v3.7/shareable.html?"></script>
-       <script src="configUrl=https://files.bpcontent.cloud/2026/10/23/18/20261023184203-ZKYM89MN.json" defer></script>
+  <!-- CSV parser -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.5.3/papaparse.min.js"></script>
+
+  <!-- Product inventory table -->
+  <script src="js/products.js"></script>
+
+  <!-- Botpress StockWise Webchat -->
+  <script src="https://cdn.botpress.cloud/webchat/v3.7/inject.js"></script>
+
+  <script>
+    window.botpress.init({
+      botId: "023745ab-b85c-4e3f-b35b-cda582392681",
+      clientId: "ac59d99b-4381-4d06-8995-cc6b51f4c0ba",
+      configuration: {
+        version: "v2",
+        botName: "StockWise",
+        botAvatar: "https://files.bpcontent.cloud/2026/10/23/19/20261023193137-P25LMI86.png",
+        color: "#2c2e32",
+        variant: "solid",
+        headerVariant: "solid",
+        themeMode: "light",
+        fontFamily: "AR One Sans",
+        radius: 2.8,
+        feedbackEnabled: false,
+        allowFileUpload: false,
+        soundEnabled: false,
+        conversationHistory: false,
+        homePageEnabled: false,
+        mainCardEnabled: false,
+        conversationStartersEnabled: false,
+        proactiveMessageEnabled: false
+      }
+    });
+  </script>
 
 </body>
 </html>
