@@ -1,186 +1,752 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VoltEdge Electronics | Ask StockWise</title>
-  <link rel="stylesheet" href="css/site.css">
-</head>
-<body>
+/* =========================================================
+   VoltEdge Electronics - site.css
+   All website styles live in this file.
+   ========================================================= */
 
-  <header class="site-header">
-    <nav class="container nav-bar" aria-label="Main navigation">
-      <a href="index.html" class="brand">
-        <span class="brand-logo">⚡</span>Volt<span class="highlight">Edge</span>
-      </a>
-      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="crud.html">Inventory</a></li>
-        <li><a href="bot.html">Ask StockWise</a></li>
-        <li><a href="aboutus.html">About Us</a></li>
-      </ul>
-    </nav>
-  </header>
+:root {
+  --primary: #1f4fd8;
+  --primary-dark: #163a9f;
+  --accent: #10b981;
+  --danger: #dc2626;
+  --warning: #f59e0b;
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --radius: 12px;
+  --shadow: 0 4px 16px rgba(17, 24, 39, 0.08);
+  --max-width: 1180px;
+}
 
-  <main>
-    <section class="page-header">
-      <div class="container">
-        <h1>🤖 StockWise - Product Assistant</h1>
-        <p>Our Botpress AI assistant answers questions about our products.</p>
-      </div>
-    </section>
+* {
+  box-sizing: border-box;
+}
 
-    <section class="section">
-      <div class="container grid bot-layout">
+html {
+  scroll-behavior: smooth;
+}
 
-        <div>
-          <div class="card" style="margin-bottom: 24px;">
-            <h3>About the Dataset</h3>
-            <p>
-              StockWise uses a Botpress Knowledge Base to answer
-              questions about VoltEdge Electronics inventory.
-              Our website displays 120 products from the inventory dataset.
-            </p>
-            <p>
-              Product information includes
-              <strong>ProductID</strong>,
-              <strong>ProductName</strong>,
-              <strong>Category</strong>,
-              <strong>ProductType</strong>,
-              <strong>UnitPriceUSD</strong>,
-              <strong>QuantityInStock</strong>,
-              <strong>StockStatus</strong>, and
-              <strong>ProductLocation</strong>.
-            </p>
-            <p>
-              Website inventory and Botpress knowledge are managed
-              separately. Changes to website inventory may not
-              immediately appear in StockWise's responses.
-            </p>
-          </div>
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-          <div class="card" style="margin-bottom: 24px;">
-            <h3>How to Chat</h3>
-            <ol class="steps">
-              <li>Click the chat bubble in the bottom-right corner.</li>
-              <li>Type a question about any VoltEdge product.</li>
-              <li>Ask about product names, prices, categories, or locations.</li>
-            </ol>
-          </div>
+main {
+  flex: 1;
+}
 
-          <div class="card" style="margin-bottom: 24px;">
-            <h3>Sample Questions</h3>
-            <ul class="sample-questions">
-              <li>"How much do the black ballpoint pens cost?"</li>
-              <li>"What office stationery products do you sell?"</li>
-              <li>"Are the blue ballpoint pens in stock?"</li>
-              <li>"Where can I find the mechanical pencils?"</li>
-              <li>"What is the cheapest product in inventory?"</li>
-              <li>"Which products need to be reordered?"</li>
-            </ul>
-          </div>
-        </div>
+a {
+  color: var(--primary);
+}
 
-        <div class="card bot-chat-card">
-          <h3>Chat with StockWise</h3>
-          <p>
-            StockWise is your virtual store assistant.
-            Ask about product information, listed prices,
-            stock status, and store locations.
-          </p>
-          <p>
-            Click the chat bubble in the bottom-right corner
-            to start a conversation.
-          </p>
-        </div>
+img {
+  max-width: 100%;
+}
 
-      </div>
-    </section>
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-    <section class="section" style="padding-top: 0;">
-      <div class="container">
-        <div class="card">
-          <h3>VoltEdge Product Inventory</h3>
-            <div class="table-responsive inventory-scroll">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Product ID</th>
-                    <th>Product Name</th>
-                    <th>Category</th>
-                    <th>Product Type</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Stock Status</th>
-                    <th>Location</th>
-                  </tr>
-                </thead>
+/* ---------- Navigation ---------- */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+}
 
-                <tbody id="productTableBody">
-                </tbody>
-              </table>
-            </div>
-        </div>
-      </div>
-    </section>
-  </main>
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>
-        &copy; <span id="year">2026</span>
-        VoltEdge Electronics &middot; ISM 6225 Prototype
-      </p>
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+}
 
-      <ul class="footer-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="crud.html">Inventory</a></li>
-        <li><a href="bot.html">Ask StockWise</a></li>
-        <li><a href="aboutus.html">About Us</a></li>
-      </ul>
-    </div>
-  </footer>
+.brand-logo {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff;
+  font-size: 1.2rem;
+}
 
-  <!-- Main website JavaScript -->
-  <script src="js/main.js"></script>
+.brand span.highlight {
+  color: var(--primary);
+}
 
-  <!-- CSV parser -->
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.5.3/papaparse.min.js"></script>
+.nav-links {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
-  <!-- Product inventory table -->
-  <script src="js/products.js"></script>
+.nav-links a {
+  display: block;
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
 
-  <!-- Botpress StockWise Webchat -->
-  <script src="https://cdn.botpress.cloud/webchat/v3.7/inject.js"></script>
+.nav-links a:hover {
+  background: #eef2ff;
+  color: var(--primary);
+}
 
-  <script>
-    window.botpress.init({
-      botId: "023745ab-b85c-4e3f-b35b-cda582392681",
-      clientId: "ac59d99b-4381-4d06-8995-cc6b51f4c0ba",
-      configuration: {
-        version: "v2",
-        botName: "StockWise",
-        botAvatar: "https://files.bpcontent.cloud/2026/10/23/19/20261023193137-P25LMI86.png",
-        color: "#2c2e32",
-        variant: "solid",
-        headerVariant: "solid",
-        themeMode: "light",
-        fontFamily: "AR One Sans",
-        radius: 2.8,
-        feedbackEnabled: false,
-        allowFileUpload: false,
-        soundEnabled: false,
-        conversationHistory: false,
-        homePageEnabled: false,
-        mainCardEnabled: false,
-        conversationStartersEnabled: false,
-        proactiveMessageEnabled: false
-      }
-    });
-  </script>
+.nav-links a.active {
+  background: var(--primary);
+  color: #fff;
+}
 
-</body>
-</html>
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 1.4rem;
+  padding: 4px 12px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background: linear-gradient(135deg, #0f172a 0%, var(--primary-dark) 60%, var(--primary) 100%);
+  color: #fff;
+  padding: 90px 0 80px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.15;
+  margin: 0 0 16px;
+}
+
+.hero p {
+  font-size: 1.15rem;
+  max-width: 640px;
+  opacity: 0.9;
+  margin: 0 0 28px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.page-header {
+  background: linear-gradient(135deg, #0f172a, var(--primary-dark));
+  color: #fff;
+  padding: 48px 0 40px;
+}
+
+.page-header h1 {
+  margin: 0 0 6px;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+}
+
+.page-header p {
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-light {
+  background: #fff;
+  color: var(--primary-dark);
+}
+
+.btn-light:hover {
+  background: #e0e7ff;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  background: #d1d5db;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #b91c1c;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+/* ---------- Sections & Cards ---------- */
+.section {
+  padding: 56px 0;
+}
+
+.section-title {
+  text-align: center;
+  margin: 0 0 8px;
+  font-size: 1.8rem;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--muted);
+  margin: 0 auto 36px;
+  max-width: 640px;
+}
+
+.grid {
+  display: grid;
+  gap: 24px;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.feature-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #eef2ff;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.feature-card p {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.stats-band {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat .value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.stat .label {
+  color: var(--muted);
+}
+
+.cta {
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 44px 24px;
+}
+
+.cta h2 {
+  margin-top: 0;
+}
+
+/* ---------- KPI cards (dashboard) ---------- */
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kpi .kpi-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.kpi .kpi-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.kpi .kpi-change {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.kpi .up {
+  color: var(--accent);
+}
+
+.kpi .down {
+  color: var(--danger);
+}
+
+.chart-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.chart-header h3 {
+  margin: 0;
+}
+
+.chart-wrap {
+  position: relative;
+  height: 320px;
+}
+
+.chart-wide {
+  grid-column: 1 / -1;
+}
+
+.dashboard-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+/* ---------- Team (about us) ---------- */
+.team-card {
+  text-align: center;
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  margin: 0 auto 14px;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+
+.role {
+  display: inline-block;
+  background: #eef2ff;
+  color: var(--primary-dark);
+  border-radius: 999px;
+  padding: 2px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.team-card ul {
+  text-align: left;
+  padding-left: 20px;
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+/* ---------- Forms ---------- */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid #c7d2fe;
+  border-color: var(--primary);
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.mode-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: #dcfce7;
+  color: #166534;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.mode-badge.edit {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* ---------- Tables ---------- */
+.table-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.table-toolbar input,
+.table-toolbar select {
+  min-width: 200px;
+}
+
+.table-responsive {
+    width: 100%;
+  max-height: 420px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+th {
+  background: #f9fafb;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+tbody tr:hover {
+  background: #f9fafb;
+}
+
+td.actions {
+  display: flex;
+  gap: 6px;
+}
+
+.empty-row td {
+  text-align: center;
+  color: var(--muted);
+  padding: 28px;
+}
+
+.stock-badge {
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.stock-ok {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.stock-low {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.stock-out {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #111827;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none;
+  z-index: 200;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Bot page ---------- */
+.sample-questions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.sample-questions li {
+  background: #f9fafb;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.bot-placeholder {
+  border: 2px dashed #c7d2fe;
+  border-radius: var(--radius);
+  background: #f8faff;
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 24px;
+  color: var(--muted);
+}
+
+.bot-placeholder .bot-icon {
+  font-size: 3rem;
+}
+
+.steps {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.steps li {
+  margin-bottom: 6px;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: #0f172a;
+  color: #cbd5e1;
+  padding: 32px 0;
+  margin-top: 40px;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-links a {
+  color: #cbd5e1;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 20px 16px;
+    box-shadow: var(--shadow);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-wrap {
+    height: 280px;
+  }
+}
+
+/* Scrollable Inventory Table */
+.inventory-scroll {
+    max-height: 420px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    position: relative;
+}
+
+/* Keep table headers visible while scrolling */
+.inventory-scroll thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: #f4f4f4;
+    box-shadow: inset 0 -1px 0 var(--border);
+}
+
+/* Prevent columns from becoming too narrow */
+.inventory-scroll table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
