@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VoltEdge Electronics | About Us</title>
+  <title>StockWise | About Us</title>
   <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
   <header class="site-header">
     <nav class="container nav-bar" aria-label="Main navigation">
-      <a href="index.html" class="brand"><span class="brand-logo">⚡</span>Volt<span class="highlight">Edge</span></a>
+      <a href="index.html" class="brand"><span class="brand-logo">📦</span><span>Stock<span class="highlight">Wise</span></span></a>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="dashboard.html">Dashboard</a></li>
         <li><a href="crud.html">Inventory</a></li>
-        <li><a href="bot.html">Ask VoltBot</a></li>
+        <li><a href="bot.html">Ask StockWise</a></li>
         <li><a href="aboutus.html">About Us</a></li>
       </ul>
     </nav>
@@ -25,7 +25,7 @@
     <section class="page-header">
       <div class="container">
         <h1>About Our Team</h1>
-        <p>The ISM 6225 group behind the VoltEdge Electronics sales portal.</p>
+        <p>The ISM 6225 group behind StockWise, an AI-assisted office supply inventory portal.</p>
       </div>
     </section>
 
@@ -33,52 +33,53 @@
       <div class="container">
         <div class="card" style="margin-bottom: 32px;">
           <h3>Our Project</h3>
-          <p>VoltEdge Electronics is a fictional consumer electronics retailer with four Florida stores and an online shop. This static prototype shows the business theme for our final project: a sales and inventory web application with analytics dashboards and an AI-powered product assistant. The final version will be a dynamic application backed by a real database.</p>
+          <p>StockWise is an inventory web application for an office supply warehouse. It tracks a catalog of 120 products across 12 categories, from office stationery and printing supplies to furniture, breakroom, and safety items, sourced from 7 suppliers and stored in 12 aisles organized by bay and shelf.</p>
+          <p>Each product record includes its price, quantity in stock, reorder level, stock status (In Stock, Reorder Needed, or Out of Stock), exact warehouse location, supplier, and inventory value. The site pairs an analytics dashboard and an inventory management page with the StockWise chatbot, built in Botpress, which answers questions about pricing, availability, product locations, and restocking using this same product catalog.</p>
+          <!-- <p><a href="https://cdn.botpress.cloud/webchat/v3.7/shareable.html?configUrl=https://files.bpcontent.cloud/2026/10/23/18/20261023184203-ZKYM89MN.json" target="_blank" rel="noopener">Open the StockWise chatbot in a new tab</a></p> -->
         </div>
 
-        <!-- Replace the names, roles, and contributions below with your group's details -->
         <div class="grid grid-2">
           <article class="card team-card">
-            <div class="avatar">M1</div>
+            <div class="avatar">AS</div>
             <h3>Andrew Smither</h3>
-            <span class="role">Project Manager &amp; Front-End Developer</span>
+            <span class="role">Chatbot &amp; Inventory Developer</span>
             <ul>
-              <li>Coordinated tasks and deadlines for the group</li>
-              <li>Built the home page and site-wide navigation</li>
-              <li>Set up and deployed the site to GitHub Pages</li>
+              <li>Built the Ask StockWise chatbot page (bot.html)</li>
+              <li>Embedded the StockWise Botpress webchat and connected it to the product catalog</li>
+              <li>Built the inventory Create, Read, Update, Delete page (crud.html)</li>
             </ul>
           </article>
 
           <article class="card team-card">
-            <div class="avatar">M2</div>
-            <h3>Long Trinh</h3>
-            <span class="role">Data Visualization Developer</span>
-            <ul>
-              <li>Designed the sales dashboard layout and KPI cards</li>
-              <li>Built the interactive Chart.js charts</li>
-              <li>Created the sample sales data set</li>
-            </ul>
-          </article>
-
-          <article class="card team-card">
-            <div class="avatar">M3</div>
+            <div class="avatar">AM</div>
             <h3>Aditi Malik</h3>
-            <span class="role">JavaScript &amp; CRUD Developer</span>
+            <span class="role">Dashboard Developer</span>
             <ul>
-              <li>Built the inventory Create, Read, Update, Delete mockup</li>
-              <li>Added search, filtering, and form validation</li>
-              <li>Wrote and organized the shared main.js code</li>
+              <li>Designed and built the inventory dashboard (dashboard.html)</li>
+              <li>Created the KPI cards and charts for stock status and inventory value</li>
+              <li>Summarized catalog data by category, supplier, and location</li>
             </ul>
           </article>
 
           <article class="card team-card">
-            <div class="avatar">M4</div>
-            <h3>Sana Afroze</h3>
-            <span class="role">Chatbot Developer &amp; UI Designer</span>
+            <div class="avatar">JL</div>
+            <h3>Josh Long</h3>
+            <span class="role">Styling &amp; JavaScript Developer</span>
             <ul>
-              <li>Built the VoltBot workflow and knowledge base in Botpress</li>
-              <li>Created the Botpress product table and embedded the bot</li>
-              <li>Designed the site styling in site.css</li>
+              <li>Designed the site-wide theme and layout in site.css</li>
+              <li>Wrote the shared JavaScript in main.js and products.js</li>
+              <li>Kept the navigation and pages responsive across screen sizes</li>
+            </ul>
+          </article>
+
+          <article class="card team-card">
+            <div class="avatar">SA</div>
+            <h3>Sana Afroze</h3>
+            <span class="role">Home &amp; About Page Developer</span>
+            <ul>
+              <li>Built the StockWise home page (index.html)</li>
+              <li>Wrote the About Us page and project overview (aboutus.html)</li>
+              <li>Presented the project and team roles</li>
             </ul>
           </article>
         </div>
@@ -88,12 +89,12 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; <span id="year">2026</span> VoltEdge Electronics &middot; ISM 6225 Prototype</p>
+      <p>&copy; <span id="year">2026</span> StockWise &middot; ISM 6225 Prototype</p>
       <ul class="footer-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="dashboard.html">Dashboard</a></li>
         <li><a href="crud.html">Inventory</a></li>
-        <li><a href="bot.html">Ask VoltBot</a></li>
+        <li><a href="bot.html">Ask StockWise</a></li>
         <li><a href="aboutus.html">About Us</a></li>
       </ul>
     </div>
