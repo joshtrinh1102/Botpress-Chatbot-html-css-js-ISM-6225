@@ -280,45 +280,47 @@ var seedProducts = [
 var products = [];
 var nextIdNumber = 1009;
 
-function getInventoryStorageKey() {
-  return "stockwise_inventory";
-}
-
-function readSharedInventory() {
-  try {
-    var saved = JSON.parse(localStorage.getItem(getInventoryStorageKey()) || "null");
-    return Array.isArray(saved) ? saved : [];
-  } catch (error) {
-    console.warn("Unable to read shared inventory:", error);
-    return [];
+function loadProductsFromCsv() {
+  if (typeof Papa === "undefined") {
+    products = seedProducts.map(function (p) { return Object.assign({}, p); });
+    renderTable();
+    return;
   }
-}
 
-function writeSharedInventory(list) {
-  try {
-    localStorage.setItem(getInventoryStorageKey(), JSON.stringify(list));
-    window.STOCKWISE_PRODUCTS = list.map(function (item) {
-      return Object.assign({}, item);
-    });
-  } catch (error) {
-    console.warn("Unable to save shared inventory:", error);
-  }
-}
-
-function nextProductIdFromProducts(productList) {
-  var maxId = 1008;
-
-  productList.forEach(function (product) {
-    var match = String(product.id || "").match(/(\d+)$/);
-    if (match) {
-      var numericId = parseInt(match[1], 10);
-      if (!isNaN(numericId)) {
-        maxId = Math.max(maxId, numericId);
+  fetch("data/Products.csv.csv")
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error("Unable to load product data.");
       }
-    }
-  });
+      return response.text();
+    })
+    .then(function (csvText) {
+      var result = Papa.parse(csvText, {
+        header: true,
+        skipEmptyLines: true
+      });
 
-  return maxId + 1;
+      products = result.data.map(function (item) {
+        var stock = parseInt(item.QuantityInStock || 0, 10);
+        return {
+          id: item.ProductID || ("VE-" + nextIdNumber++),
+          name: item.ProductName || "",
+          category: item.Category || "",
+          price: parseFloat(item.UnitPriceUSD || 0),
+          stock: stock,
+          status: item.StockStatus || (stock === 0 ? "Out of Stock" : stock < 10 ? "Low Stock" : "In Stock"),
+          location: item.ProductLocation || ""
+        };
+      });
+
+      nextIdNumber = 1009;
+      renderTable();
+    })
+    .catch(function () {
+      products = seedProducts.map(function (p) { return Object.assign({}, p); });
+      nextIdNumber = 1009;
+      renderTable();
+    });
 }
 
 function initCrud() {
@@ -358,18 +360,10 @@ function initCrud() {
 }
 
 function resetData() {
-  var savedInventory = readSharedInventory();
-
-  if (savedInventory.length) {
-    products = savedInventory.map(function (p) { return Object.assign({}, p); });
-  } else {
-    products = seedProducts.map(function (p) { return Object.assign({}, p); });
-    writeSharedInventory(products);
-  }
-
-  nextIdNumber = nextProductIdFromProducts(products);
+  products = [];
+  nextIdNumber = 1009;
   clearForm();
-  renderTable();
+  loadProductsFromCsv();
 }
 
 // CREATE + UPDATE
@@ -401,7 +395,6 @@ function saveProduct() {
     showToast("Added " + product.name + " to inventory.");
   }
 
-  writeSharedInventory(products);
   clearForm();
   renderTable();
 }
@@ -441,7 +434,6 @@ function renderTable() {
   document.getElementById("productCount").textContent = products.length;
   document.getElementById("inventoryValue").textContent = formatCurrency(totalValue);
   document.getElementById("lowStockCount").textContent = products.filter(function (p) { return p.stock < 10; }).length;
-  writeSharedInventory(products);
 }
 
 function editProduct(id) {
@@ -470,7 +462,6 @@ function deleteProduct(id) {
   if (document.getElementById("productId").value === id) {
     clearForm();
   }
-  writeSharedInventory(products);
   renderTable();
   showToast("Deleted " + p.name + ".");
 }
