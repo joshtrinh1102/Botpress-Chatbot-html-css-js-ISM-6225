@@ -3,19 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VoltEdge Electronics | Sales Dashboard</title>
+  <title>StockWise | Inventory Analytics Dashboard</title>
   <link rel="stylesheet" href="css/site.css">
+  <style>
+    .dashboard-note {color: var(--muted); font-size: .9rem; margin-top: 12px;}
+    .dashboard-controls {display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 24px;}
+    .dashboard-controls select {max-width: 320px; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text);}
+    .dashboard-error {padding: 14px; background: #fff1f2; color: #9f1239; border: 1px solid #fecdd3; border-radius: 8px; margin-bottom: 20px;}
+  </style>
 </head>
 <body>
   <header class="site-header">
     <nav class="container nav-bar" aria-label="Main navigation">
-      <a href="index.html" class="brand"><span class="brand-logo">⚡</span>Volt<span class="highlight">Edge</span></a>
+      <a href="index.html" class="brand"><span class="brand-logo">📦</span>StockWise</span></a>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="dashboard.html">Dashboard</a></li>
         <li><a href="crud.html">Inventory</a></li>
-        <li><a href="bot.html">Ask VoltBot</a></li>
+        <li><a href="bot.html">Ask StockWise AI</a></li>
         <li><a href="aboutus.html">About Us</a></li>
       </ul>
     </nav>
@@ -24,87 +30,59 @@
   <main>
     <section class="page-header">
       <div class="container">
-        <h1>Sales Dashboard</h1>
-        <p>Revenue, category, store, and product performance across all VoltEdge locations.</p>
+        <h1>Inventory Analytics Dashboard</h1>
+        <p>Explore office-supply stock, inventory value, and replenishment priorities using the StockWise product catalog.</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
+        <div id="dashboardError" class="dashboard-error" role="alert" hidden></div>
         <div class="dashboard-controls">
-          <label for="yearSelect">Fiscal Year:</label>
-          <select id="yearSelect">
-            <option value="2026" selected>2026</option>
-            <option value="2025">2025</option>
-          </select>
-          <span style="color: var(--muted); font-size: 0.9rem;">Hover over charts for details. Click legend items to show or hide data.</span>
+          <label for="categorySelect"><strong>Product Category:</strong></label>
+          <select id="categorySelect"><option value="all">All Categories</option></select>
+          <button type="button" class="btn btn-secondary btn-sm" id="resetFilter">Reset Filter</button>
         </div>
 
         <div class="grid grid-4" style="margin-bottom: 24px;">
-          <div class="card kpi">
-            <span class="kpi-label">Total Revenue</span>
-            <span class="kpi-value" id="kpiRevenue">$0</span>
-            <span class="kpi-change" id="kpiRevenueChange"></span>
-          </div>
-          <div class="card kpi">
-            <span class="kpi-label">Total Orders</span>
-            <span class="kpi-value" id="kpiOrders">0</span>
-            <span class="kpi-change">All channels</span>
-          </div>
-          <div class="card kpi">
-            <span class="kpi-label">Average Order Value</span>
-            <span class="kpi-value" id="kpiAov">$0</span>
-            <span class="kpi-change">Revenue ÷ orders</span>
-          </div>
-          <div class="card kpi">
-            <span class="kpi-label">Store Locations</span>
-            <span class="kpi-value">4</span>
-            <span class="kpi-change">+ online store</span>
-          </div>
+          <div class="card kpi"><span class="kpi-label">Total Inventory Value</span><span class="kpi-value" id="kpiInventoryValue">—</span><span class="kpi-change">Value of units currently in stock</span></div>
+          <div class="card kpi"><span class="kpi-label">Total Products</span><span class="kpi-value" id="kpiTotalProducts">—</span><span class="kpi-change">Distinct product records</span></div>
+          <div class="card kpi"><span class="kpi-label">Reorder Needed</span><span class="kpi-value" id="kpiLowStock">—</span><span class="kpi-change">StockStatus = Reorder Needed</span></div>
+          <div class="card kpi"><span class="kpi-label">Restock Recommended</span><span class="kpi-value" id="kpiRestock">—</span><span class="kpi-change">Includes out-of-stock products</span></div>
         </div>
 
         <div class="grid grid-2">
           <div class="card chart-card chart-wide">
-            <div class="chart-header">
-              <h3>Monthly Revenue</h3>
-              <button class="btn btn-secondary btn-sm" id="chartTypeToggle">Show as Bar</button>
-            </div>
-            <div class="chart-wrap"><canvas id="revenueChart" aria-label="Monthly revenue chart" role="img"></canvas></div>
+            <div class="chart-header"><h3>Inventory Value by Category</h3></div>
+            <div class="chart-wrap"><canvas id="inventoryValueChart" aria-label="Bar chart of inventory value by product category" role="img"></canvas></div>
           </div>
-
           <div class="card chart-card">
-            <div class="chart-header"><h3>Revenue by Category</h3></div>
-            <div class="chart-wrap"><canvas id="categoryChart" aria-label="Revenue by category chart" role="img"></canvas></div>
+            <div class="chart-header"><h3>Product Count by Stock Status</h3></div>
+            <div class="chart-wrap"><canvas id="stockStatusChart" aria-label="Doughnut chart of products grouped by stock status" role="img"></canvas></div>
           </div>
-
           <div class="card chart-card">
-            <div class="chart-header"><h3>Revenue by Store &amp; Channel</h3></div>
-            <div class="chart-wrap"><canvas id="storeChart" aria-label="Revenue by store chart" role="img"></canvas></div>
+            <div class="chart-header"><h3>Restock Recommendations by Category</h3></div>
+            <div class="chart-wrap"><canvas id="restockChart" aria-label="Bar chart of products needing restock by category" role="img"></canvas></div>
           </div>
-
           <div class="card chart-card chart-wide">
-            <div class="chart-header"><h3>Top 5 Products by Units Sold</h3></div>
-            <div class="chart-wrap"><canvas id="productsChart" aria-label="Top products chart" role="img"></canvas></div>
+            <div class="chart-header"><h3>Top 5 Products by Inventory Value</h3></div>
+            <div class="chart-wrap"><canvas id="topProductsChart" aria-label="Horizontal bar chart of top five products by inventory value" role="img"></canvas></div>
           </div>
         </div>
+        <p class="dashboard-note">Source: the group's StockWise Products.csv.csv snapshot (October 23, 2026). Inventory value uses InventoryValueUSD; low-stock and restock counts use the dataset's recorded flags. Changing category filters only this dashboard. It does not change the Botpress knowledge base or inventory CRUD data.</p>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; <span id="year">2026</span> VoltEdge Electronics &middot; ISM 6225 Prototype</p>
-      <ul class="footer-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="crud.html">Inventory</a></li>
-        <li><a href="bot.html">Ask VoltBot</a></li>
-        <li><a href="aboutus.html">About Us</a></li>
-      </ul>
+      <p>&copy; <span id="year">2026</span> StockWise &middot; ISM 6225 Prototype</p>
+      <ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="dashboard.html">Dashboard</a></li><li><a href="crud.html">Inventory</a></li><li><a href="bot.html">Ask StockWise AI</a></li><li><a href="aboutus.html">About Us</a></li></ul>
     </div>
   </footer>
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/products-data.js"></script>
+  <script src="js/dashboard.js"></script>
 </body>
 </html>
